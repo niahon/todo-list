@@ -1,4 +1,10 @@
 :root {
+    --text-color: #e1d9f7;
+    --invert-text-color: rgb(34, 34, 34);
+    --background-color: #0e061d;
+    --primary-color: #a386e5;
+    --secondary-color: #8f1e42;
+    --accent-color: #d9544a;
 
 }
 
@@ -16,3 +22,43 @@ html {
 * {
     box-sizing: inherit;
 }
+
+body {
+    background-color: var(--background-color);
+}
+
+/* TODO LIST */
+
+.todo-container {
+    padding: 2rem 1rem;
+    background-color: var(--primary-color);
+    width: 90%;
+    border-radius: 5px;
+    margin: 2rem auto 0;
+
+    @media (min-width: 768px) {
+        width: 65%;    
+    }
+    
+    @media (min-width: 1279px) {
+        width: 50%;
+    }
+}
+    .search-flex {
+        display: flex;
+        gap: 0.5rem;
+        width: 70%;
+    }
+    input[type="search"] {
+        font-size: 20px;
+        flex-grow: 10;
+    }
+    input[type="submit"] {
+        background-color: var(--accent-color);
+        border: none;
+        flex: 0 0 30px;
+        flex-grow: 1;
+        font-size: 20px;
+        padding: 0.25rem;
+        border-radius: 5px;
+    }
