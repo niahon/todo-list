@@ -5,7 +5,7 @@ let elSubmit = document.getElementById("submit");
 let elList = document.getElementById("todo-list");
 
 let todoText = ""
-let itemAmount = 0;
+let itemArray = [];
 
 elText.addEventListener("input", () => {
     todoText = elText.value;
@@ -20,15 +20,11 @@ elSubmit.addEventListener("click", (e) => {
 
 
 function createItem(text) {   
-    itemAmount++; 
-    let checkId = itemAmount;
     const newListItem = document.createElement("li");
     const newCheckbox = document.createElement("input");
     newCheckbox.type = "checkbox";
-    newCheckbox.id = checkId;
     const newLabel = document.createElement("label");
     const newContent = document.createTextNode(text);
-    newLabel.setAttribute("for", checkId);
     newLabel.appendChild(newContent); 
     const newDelete = document.createElement("span");
     newDelete.textContent = " X";
@@ -36,7 +32,9 @@ function createItem(text) {
     newListItem.appendChild(newCheckbox);
     newListItem.appendChild(newLabel);
     newListItem.appendChild(newDelete);
+    itemArray.push(newListItem);
     deleteListener(newDelete);
+    setId(newCheckbox, newLabel);
 }
 
 function deleteListener(del) {
@@ -44,6 +42,25 @@ function deleteListener(del) {
 }
 
 function deleteItem(e) {
-    e.target.parentElement.remove();
-    itemAmount--;
+    let li = e.target.parentElement;
+    itemArray.splice(itemArray.indexOf(li), 1);
+    li.remove();
+    updateId();
+}
+
+function setId(checkbox, label) {
+    let id = itemArray.indexOf(checkbox.parentElement);
+    checkbox.id = id;
+    label.setAttribute("for", id);
+}
+
+function updateId() {
+    let list = Array.from(elList.children);
+    for (let el of list) {
+        let checkbox = el.children[0];
+        let label = el.children[1];
+        let id = itemArray.indexOf(checkbox.parentElement);
+        checkbox.id = id;
+        label.setAttribute("for", id);
+    }
 }
