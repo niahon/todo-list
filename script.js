@@ -5,7 +5,7 @@ let elSubmit = document.getElementById("submit");
 let elList = document.getElementById("todo-list");
 let elLabels = document.getElementsByTagName("label");
 
-let todoText = ""
+let todoText
 let itemArray = [];
 
 elText.addEventListener("input", () => {
@@ -14,6 +14,9 @@ elText.addEventListener("input", () => {
 
 elSubmit.addEventListener("click", (e) => {
     elText.value = "";
+    if (todoText.textContent === "") {
+        return;
+    }
     createItem(todoText);
     todoText = "";
 })
@@ -22,10 +25,9 @@ function labelListener(label) {
     label.addEventListener("keydown", confirmEdit);
 }
 
-
-
 function createItem(text) {   
     const newListItem = document.createElement("li");
+    newListItem.classList.add("list-item");
     const newCheckbox = document.createElement("input");
     newCheckbox.type = "checkbox";
     const newLabel = document.createElement("label");
