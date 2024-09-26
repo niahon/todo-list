@@ -8,6 +8,17 @@ let elLabels = document.getElementsByTagName("label");
 let todoText
 let itemArray = [];
 
+elText.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        if (todoText.textContent === "") {
+            return;
+        }
+        createItem(todoText);
+        todoText = "";
+        e.target.value = "";
+    }
+})
+
 elText.addEventListener("input", () => {
     todoText = elText.value;
 })
