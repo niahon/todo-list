@@ -3,6 +3,7 @@
 let elText = document.getElementById("text-field");
 let elSubmit = document.getElementById("submit");
 let elList = document.getElementById("todo-list");
+let elLabels = document.getElementsByTagName("label");
 
 let todoText = ""
 let itemArray = [];
@@ -16,6 +17,10 @@ elSubmit.addEventListener("click", (e) => {
     createItem(todoText);
     todoText = "";
 })
+
+function labelListener(label) {
+    label.addEventListener("keydown", confirmEdit);
+}
 
 
 
@@ -35,6 +40,20 @@ function createItem(text) {
     itemArray.push(newListItem);
     deleteListener(newDelete);
     setId(newCheckbox, newLabel);
+    console.log(elLabels);
+    newLabel.setAttribute("contenteditable", "true");
+    labelListener(newLabel);
+}
+
+function focusLabel(e) {
+    e.target.focus();
+}
+
+function confirmEdit(e) {
+    if (e.key === "Enter") {
+        e.target.blur();
+    }
+    console.log(e.key);
 }
 
 function deleteListener(del) {
@@ -51,7 +70,6 @@ function deleteItem(e) {
 function setId(checkbox, label) {
     let id = itemArray.indexOf(checkbox.parentElement);
     checkbox.id = id;
-    label.setAttribute("for", id);
 }
 
 function updateId() {
@@ -61,6 +79,5 @@ function updateId() {
         let label = el.children[1];
         let id = itemArray.indexOf(checkbox.parentElement);
         checkbox.id = id;
-        label.setAttribute("for", id);
     }
 }
