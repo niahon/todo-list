@@ -5,12 +5,14 @@ let elSubmit = document.getElementById("submit");
 let elList = document.getElementById("todo-list");
 let elLabels = document.getElementsByTagName("label");
 
+console.log(elText);
+
 let todoText
 let itemArray = [];
 
 elText.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
-        if (todoText.textContent === "") {
+        if (todoText === "") {
             return;
         }
         createItem(todoText);
@@ -25,7 +27,7 @@ elText.addEventListener("input", () => {
 
 elSubmit.addEventListener("click", (e) => {
     elText.value = "";
-    if (todoText.textContent === "") {
+    if (todoText === "") {
         return;
     }
     createItem(todoText);
