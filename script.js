@@ -5,10 +5,14 @@ let elSubmit = document.getElementById("submit");
 let elList = document.getElementById("todo-list");
 let elLabels = document.getElementsByTagName("label");
 
-console.log(elText);
 
 let todoText
 let itemArray = [];
+
+window.addEventListener("load", () => {
+    elText.value = "";
+    todoText = "";
+})
 
 elText.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
@@ -38,6 +42,10 @@ function labelListener(label) {
     label.addEventListener("keydown", confirmEdit);
 }
 
+function checkboxListener(check) {
+    check.addEventListener("click", strikeThroughItem);
+}
+
 function createItem(text) {   
     const newListItem = document.createElement("li");
     newListItem.classList.add("list-item");
@@ -55,9 +63,9 @@ function createItem(text) {
     itemArray.push(newListItem);
     deleteListener(newDelete);
     setId(newCheckbox, newLabel);
-    console.log(elLabels);
     newLabel.setAttribute("contenteditable", "true");
     labelListener(newLabel);
+    checkboxListener(newCheckbox);
 }
 
 function focusLabel(e) {
@@ -95,4 +103,8 @@ function updateId() {
         let id = itemArray.indexOf(checkbox.parentElement);
         checkbox.id = id;
     }
+}
+
+function strikeThroughItem(e) {
+    e.target.nextSibling.classList.toggle("strike-through");
 }
